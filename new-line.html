@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="chart_div"></div>
+<script>
+    google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBasic);
+
+function drawBasic() {
+
+    var jsonData = $.ajax({
+       url: "lien.json",
+       dataType: "json",
+       async: false
+       }).responseText;
+
+      var data = new google.visualization.DataTable(jsonData);
+
+
+      var options = {
+        hAxis: {
+          title: 'Topping'
+        },
+        vAxis: {
+          title: 'Slices'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+</script>
+</body>
+</html>
